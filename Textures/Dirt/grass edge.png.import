@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/grass edge.png-5ecea78045f76cc66ec2bb77880ab359.image"
+
+[deps]
+
+source_file="res://Textures/Dirt/grass edge.png"
+dest_files=[ "res://.import/grass edge.png-5ecea78045f76cc66ec2bb77880ab359.image" ]
+
+[params]
+

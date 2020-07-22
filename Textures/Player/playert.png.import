@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/playert.png-d3cce84c98418cda5ef5fdd6535c54f4.image"
+
+[deps]
+
+source_file="res://Textures/Player/playert.png"
+dest_files=[ "res://.import/playert.png-d3cce84c98418cda5ef5fdd6535c54f4.image" ]
+
+[params]
+
