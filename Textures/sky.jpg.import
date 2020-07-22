@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/sky.jpg-3b329862c64cf646c157a114858a465c.image"
+
+[deps]
+
+source_file="res://Textures/sky.jpg"
+dest_files=[ "res://.import/sky.jpg-3b329862c64cf646c157a114858a465c.image" ]
+
+[params]
+
