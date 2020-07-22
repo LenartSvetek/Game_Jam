@@ -5,19 +5,33 @@ export (int) var speed = 500
 var direction = Vector2(0,0)
 var gravity = Vector2();
 var jump = false
+var dod=true
 
 func _physics_process(delta):
 	# Get player input
 	direction.x = 0
 	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
 	if direction.x == 0:
-		$AnimatedSprite.play("stoji")
+		if dod==true:
+			$AnimatedSprite.play("stoji")
+		else:
+			$AnimatedSprite.play("zombi stoji")
 	if Input.is_action_pressed('right'):
-		$AnimatedSprite.flip_h=false
-		$AnimatedSprite.play("hod")
+		if dod==true:
+			$AnimatedSprite.flip_h=false
+			$AnimatedSprite.play("hod")
+		else:
+			$AnimatedSprite.play("zombi hodi")
+			$AnimatedSprite.flip_h=false
 	if Input.is_action_pressed('left'):
-		$AnimatedSprite.flip_h=true
-		$AnimatedSprite.play("hod")
+		if dod==true:
+			$AnimatedSprite.flip_h=true
+			$AnimatedSprite.play("hod")
+		else:
+			$AnimatedSprite.play("zombi hodi")
+			$AnimatedSprite.flip_h=true
+	if Input.is_action_pressed('down'):
+		dod= !dod
 	if direction.y != 0:
 		direction.y += 0.5
 	if !move_and_collide(Vector2(0,0)):
