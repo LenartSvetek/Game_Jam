@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 export (int) var speed = 500
 
-var direction = Vector2()
+var direction = Vector2(0,0)
 var gravity = Vector2();
 var jump = false
 
