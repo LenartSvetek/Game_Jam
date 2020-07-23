@@ -1,62 +1,57 @@
-extends KinematicBody2D
+extends "res://character.gd"
 
-export (int) var speed = 500
+# Jumping
+var can_jump = false
+var jump_time = 0
+const TOP_JUMP_TIME = 0.1 # in seconds
 
-var direction = Vector2(0,0)
-var gravity = Vector2();
-var jump = false
-var dod=true
-var pressed = false
+# Start
+func _ready():
+	# Set player properties
+	acceleration = 1000
+	top_move_speed = 400
+	top_jump_speed = 500
 
-func _physics_process(delta):
-	# Get player input
-	direction.x = 0
-	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
-	
-	if direction.x == 0:
-		if dod==true:
-			$AnimatedSprite.play("stoji")
-		else:
-			$AnimatedSprite.play("zombi stoji")
+func animation():
+	if directional_force.x == 0:
+		$CollisionShape2D/AnimatedSprite.play("stoji")
 	if Input.is_action_pressed('right'):
-		if dod==true:
-			$AnimatedSprite.flip_h=false
-			$AnimatedSprite.play("hod")
-		else:
-			$AnimatedSprite.play("zombi hodi")
-			$AnimatedSprite.flip_h=false
+		$CollisionShape2D/AnimatedSprite.flip_h=false
+		$CollisionShape2D/AnimatedSprite.play("hod")
 	if Input.is_action_pressed('left'):
-		if dod==true:
-			$AnimatedSprite.flip_h=true
-			$AnimatedSprite.play("hod")
-		else:
-			$AnimatedSprite.play("zombi hodi")
-			$AnimatedSprite.flip_h=true
-	if Input.is_action_pressed('down'):
-		if !pressed:
-			dod= !dod
-			pressed = true
-	else:
-		pressed = false
-	if direction.y != 0:
-		direction.y += 0.5
-	if !move_and_collide(Vector2(0,0)):
-		print(direction.x, " ", direction.y)
-	else:
-		direction.y = -Input.get_action_strength("up")
-		if direction.y != 0.0:
-			jump = true
-	if jump == true:
-		direction.y *= 4
-		jump = false
-		
-	direction.x *= 1.2
-	# If input is digital, normalize it for diagonal movement
-	if abs(direction.x) == 1 and abs(direction.y) == 1:
-		direction = direction.normalized()
+		$CollisionShape2D/AnimatedSprite.flip_h=true
+		$CollisionShape2D/AnimatedSprite.play("hod")
+
+# Apply force
+func apply_force(state):
 	
-	# Apply movement
-	gravity.y = speed * 0.8 * delta
-	var movement = speed * direction * delta
-	move_and_collide(movement)
-	move_and_collide(gravity)
+	# Move Left
+	if(Input.is_action_pressed("left")):
+		if can_jump:
+			directional_force += DIRECTION.LEFT
+		else:
+			directional_force += DIRECTION.LEFT/2
+	
+	# Move Right
+	if(Input.is_action_pressed("right")):
+		if can_jump:
+			directional_force += DIRECTION.RIGHT
+		else:
+			directional_force += DIRECTION.RIGHT/2
+	
+	# Jump
+	if(Input.is_action_pressed("up") && can_jump):
+		directional_force += DIRECTION.UP
+		jump_time += state.get_step()
+		can_jump = false
+		
+	if get_colliding_bodies().size() != 0:
+		var list = get_colliding_bodies()
+		print(list.size())
+		for i in range(0, list.size()):
+			var groups = list[i].get_groups()
+			if groups.has("solid"):
+				can_jump = true
+			elif groups.has("special"):
+				print("hi")
+	animation()

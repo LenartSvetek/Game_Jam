@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/Platform.png-1388750cd4678edf2af9c36cbaf1b89d.image"
+
+[deps]
+
+source_file="res://Textures/Platform/Platform.png"
+dest_files=[ "res://.import/Platform.png-1388750cd4678edf2af9c36cbaf1b89d.image" ]
+
+[params]
+
